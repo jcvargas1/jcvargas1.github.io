@@ -9,6 +9,12 @@ let currentMode = DEFAULT_MODE
 // Generates the initial grid when page loads.
 generateGrid(currentSize)
 
+
+// Only colors the grid when mouse is held down
+let mouseDown = false
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
+
 // Generates grid with given dimensions decided by the slider on the web page. Default color mode is black
 
 function generateGrid (givenSize) {
@@ -22,16 +28,21 @@ function generateGrid (givenSize) {
         div.classList.add("box")
         gridContainer.appendChild(div);
     }
-    document.querySelector(".gridSize").textContent = `${givenSize}x${givenSize}`;
+    document.querySelector(".gridSize").textContent = `${givenSize} x ${givenSize}`;
 
     let gridBoxList = document.querySelectorAll(".box");
-    gridBoxList.forEach(gridBox => {gridBox.addEventListener("mouseover", changeColor)});
+    gridBoxList.forEach(gridBox => {
+        gridBox.addEventListener("mousedown", changeColor)
+        gridBox.addEventListener("mouseover", changeColor)
+
+    });
     fillBtnCol(currentMode)
 }
 
 // Chooses the appropriate color to make the boxes within the grid
 
 function changeColor(event){
+    if (event.type === 'mouseover' && !mouseDown) return
     if (currentColor === 'black' || currentColor === 'grey' ){
         event.target.style.backgroundColor = currentColor;
     }
@@ -41,7 +52,10 @@ function changeColor(event){
         var b = Math.floor(Math.random()*255);
 
         event.target.style.backgroundColor = `rgb(${r},${g},${b})`
+    }
 
+    else if (currentColor === 'aliceblue') {
+        event.target.style.backgroundColor = currentColor
     }
     
 }
@@ -60,10 +74,8 @@ function resetGrid(size) {
     while (grid.firstChild) {
         grid.removeChild(grid.lastChild)
     }
-
     generateGrid(size)
 }
-
 
 function clearBtnCol(btnColor) {
 
@@ -72,7 +84,7 @@ function clearBtnCol(btnColor) {
 
 function fillBtnCol (btnColor) {
 
-    document.getElementById(`${currentMode}`).style.backgroundColor = 'darkgrey'
+    document.getElementById(`${currentMode}`).style.backgroundColor = 'grey'
 
 }
 
@@ -102,6 +114,23 @@ clearBtn.addEventListener("mouseout",function() {
 })
 
 
+// Eraser Button
+
+eraserBtn.onclick = function () {
+    clearBtnCol(currentColor)
+    currentColor = 'aliceblue'
+    currentMode = 'eraserBtn'
+    fillBtnCol(currentColor)
+}
+
+eraserBtn.addEventListener("mouseover", function (){
+    document.getElementById("eraserBtn").style.transform = "scale(1.2)";  
+})
+
+eraserBtn.addEventListener("mouseout",function() {
+    document.getElementById("eraserBtn").style.transform = "scale(1)";
+})
+
 
 // Rainbow button click action & scales up on hover and down after
 
@@ -110,8 +139,6 @@ rainbowBtn.onclick = function() {
     currentColor = "rainbow"
     currentMode = "rainbowBtn"
     fillBtnCol(currentMode)
-    let gridBoxList = document.querySelectorAll(".box");
-    gridBoxList.forEach(gridBox => {gridBox.addEventListener("mouseover", changeColor)});
 }
 
 rainbowBtn.addEventListener("mouseover", function (){
@@ -129,8 +156,6 @@ greyBtn.onclick = function() {
     currentColor = "grey"
     currentMode = "greyBtn"
     fillBtnCol(currentMode)
-    let gridBoxList = document.querySelectorAll(".box");
-    gridBoxList.forEach(gridBox => {gridBox.addEventListener("mouseover", changeColor)});
 }
 
 greyBtn.addEventListener("mouseover", function (){
@@ -148,10 +173,7 @@ blackBtn.onclick = function() {
         clearBtnCol(currentMode)
         currentColor = "black"
         currentMode = "blackBtn"
-        fillBtnCol(currentMode)
-        let gridBoxList = document.querySelectorAll(".box");
-        gridBoxList.forEach(gridBox => {gridBox.addEventListener("mouseover", changeColor)});
-    
+        fillBtnCol(currentMode)  
 }
 
 blackBtn.addEventListener("mouseover", function (){
@@ -161,11 +183,3 @@ blackBtn.addEventListener("mouseover", function (){
 blackBtn.addEventListener("mouseout",function() {
     document.getElementById("blackBtn").style.transform = "scale(1)";
 })
-
-
-
-
-
-
-
-
