@@ -1,4 +1,4 @@
-# Link: [jcvargas1.github.io](jcvargas1.github.io)
+# Link: [jcvargas1.github.io]
 
 # Etch-a-Sketch 
 A web page using HTML, CSS, & Vanilla Javascript allowing the user to color a grid.
