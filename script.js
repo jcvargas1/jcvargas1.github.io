@@ -7,8 +7,9 @@ let currentSize = DEFAULT_SIZE
 let currentMode = DEFAULT_MODE
 
 // Generates the initial grid when page loads.
-generateGrid(currentSize)
-
+window.onload = () => {
+    generateGrid(currentSize)   
+  }
 
 // Only colors the grid when mouse is held down
 let mouseDown = false
