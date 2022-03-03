@@ -17,13 +17,15 @@ body {
     text-shadow: 3px 3px white;
     margin-bottom: 50px;
     margin-top: 40px;
+    
+    /** Adds Animation to title of page **/
     animation-name: pulse;
     animation-duration: 2000ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
 
-
+/** Adds Animation to title of page **/
 @keyframes pulse {
    100% {
        transform: scale(0.8) scale(1.4);
@@ -48,17 +50,12 @@ body {
     width: 150px;
     margin-right: 50px;
     margin-bottom: 200px;
- 
-
-    
-
 }
 
 .settings h2 {
     font-family: Helvetica;
     font-size: 30px;
     text-shadow: 2px 2px white;
-    margin-bottom: 20px;
     font-family: Roboto;
 
 }
@@ -75,12 +72,10 @@ button {
     border-style: solid;
     border-color: black;
     border-width: 2px;
-    margin: 40px;
+    margin: 30px;
     font-weight:bolder;
     font-family: Roboto;
     color:white
-   
-
 }
 
 .gridBox {
